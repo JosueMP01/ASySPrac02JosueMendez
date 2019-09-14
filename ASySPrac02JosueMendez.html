@@ -1,0 +1,627 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PR&Aacute;CTICA 02 Se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-09-13"><meta name="DC.source" content="Practica02.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>PR&Aacute;CTICA 02 Se&ntilde;ales en tiempo continuo</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Integrantes</a></li><li><a href="#2">Objetivos</a></li><li><a href="#3">Introducci&oacute;n</a></li><li><a href="#4">Desarrollo</a></li><li><a href="#14">Ap&eacute;ndices</a></li><li><a href="#15">Referencias</a></li></ul></div><h2 id="1">Integrantes</h2><div><ul><li>Cuevas Morales Sa&uacute;l As&iacute;s</li><li>Gonzalez Z&uacute;&ntilde;iga Alexis Bryan</li><li>M&eacute;ndez Pallares Josu&eacute;</li><li>Vallejo Camarillo Mois&eacute;s Eduardo</li></ul></div><h2 id="2">Objetivos</h2><div><ol><li>Manipulaci&oacute;n b&aacute;sica de MATLAB.</li><li>Gr&aacute;ficas de se&ntilde;ales reales y complejas continuas.</li><li>Transformaci&oacute;n de se&ntilde;ales continuas (escalamientos y traslaciones).</li><li>C&aacute;lculo de energ&iacute;a y potencia de se&ntilde;ales continuas.</li></ol></div><h2 id="3">Introducci&oacute;n</h2><p>Historia de Matlab:</p><p>Cleve Moler fue profesor de matem&aacute;ticas y ciencias de la computaci&oacute;n en la Universidad de Nuevo M&eacute;xico cuando desarroll&oacute; la primera versi&oacute;n de Matlab. Moler quer&iacute;a que sus estudiantes tuvieran acceso al software de la matriz Linpack y EISPACK sin tener que utilizar el lenguaje de programaci&oacute;n Fortran, el cual es complejo. &Eacute;l vino para arriba con el sistema Matlab para resolver este problema. El lenguaje fue dise&ntilde;ado espec&iacute;ficamente para manejar c&aacute;lculos con matrices y las matem&aacute;ticas, dijo en una entrevista con " Computerworld".</p><p>Moler trat&oacute; de encontrar algunos de los usos comerciales de Matlab en la d&eacute;cada de 1970 y principios de 1980, sin &eacute;xito. Poco despu&eacute;s conoci&oacute; a Jack Little, quien vio posibilidades de Matlab en el mercado, particularmente en relaci&oacute;n a los problemas de ingenier&iacute;a. Moler y peque&ntilde;os MathWorks co - fundada en 1984 para buscar oportunidades de negocio con Matlab. Poco sirvi&oacute; como presidente de la compa&ntilde;&iacute;a, pero Moler no funcion&oacute; en la empresa en un primer momento. Steve Bangert era programador en jefe de la empresa en el inicio. Moler uni&oacute; a la compa&ntilde;&iacute;a en 1989 despu&eacute;s de que hab&iacute;a comenzado a crecer y generar importantes ingresos.</p><p>MathWorks se desarroll&oacute; r&aacute;pidamente, entre las principales novedades en el camino, la compa&ntilde;&iacute;a tuvo &eacute;xito en encontrar la manera de hacer Matlab disponible en todos los equipos en el mercado en la d&eacute;cada de 1980. La compa&ntilde;&iacute;a tambi&eacute;n a&ntilde;adi&oacute; caracter&iacute;sticas gr&aacute;ficas y trazado de Matlab, temprano en la existencia MathWorks, que fue " uno de los aspectos m&aacute;s importantes de su popularidad&#8221;. En 2010, MathWorks ten&iacute;an $ 600 millones en ingresos, con m&aacute;s de la mitad procedentes de fuera de los Estados Unidos.</p><p>Aunque Moler comenz&oacute; Matlab, el lenguaje en &uacute;ltima instancia result&oacute; influyente en una amplia gama de campos. En particular, Moler dijo, &#8220;poco se volvi&oacute; Matlab en un lenguaje de programaci&oacute;n amplia, con amplias implicaciones&#8221;. Finalmente, Matlab comenz&oacute; a ser utilizado en &aacute;reas tan variadas como los autom&oacute;viles, los aviones, los aud&iacute;fonos, tel&eacute;fonos celulares, los precios de derivados financieros y acad&eacute;micos. En el momento de la publicaci&oacute;n, 1400 libros Matlab basados hab&iacute;an sido escritos en 28 idiomas.</p><p>Python:</p><p>Python es un lenguaje de scripting independiente de plataforma y orientado a objetos, preparado para realizar cualquier tipo de programa, desde aplicaciones Windows a servidores de red o incluso, p&aacute;ginas web. Es un lenguaje interpretado, lo que significa que no se necesita compilar el c&oacute;digo fuente para poder ejecutarlo, lo que ofrece ventajas como la rapidez de desarrollo e inconvenientes como una menor velocidad. En los &uacute;ltimos a&ntilde;os el lenguaje se ha hecho muy popular, gracias a varias razones como:</p><div><ul><li>La cantidad de librer&iacute;as que contiene, tipos de datos y funciones incorporadas en el propio lenguaje, que ayudan a realizar muchas tareas habituales sin necesidad de tener que programarlas desde cero.</li><li>La sencillez y velocidad con la que se crean los programas. Un programa en Python puede tener de 3 a 5 l&iacute;neas de c&oacute;digo menos que su equivalente en Java o C.</li><li>La cantidad de plataformas en las que podemos desarrollar, como Unix, Windows, OS/2, Mac, Amiga y otros.</li><li>Adem&aacute;s, Python es gratuito, incluso para prop&oacute;sitos empresariales.</li></ul></div><p>Octave:</p><p>Octave o GNU Octave es un programa libre para realizar c&aacute;lculos num&eacute;ricos. Como indica su nombre es parte de proyecto GNU. MATLAB es considerado su equivalente comercial. Entre varias caracter&iacute;sticas que comparten se puede destacar que ambos ofrecen un int&eacute;rprete permitiendo ejecutar &oacute;rdenes en modo interactivo. N&oacute;tese que Octave no es un sistema de &aacute;lgebra computacional como podr&iacute;a ser Maxima, sino que usa un lenguaje que est&aacute; orientado al an&aacute;lisis num&eacute;rico. El proyecto fue creado alrededor del a&ntilde;o 1988 pero con una finalidad diferente: Ser utilizado en un curso de dise&ntilde;o de reactores qu&iacute;micos. Posteriormente en el a&ntilde;o 1992, se decide extenderlo y comienza su desarrollo a cargo de John W. Eaton. La primera versi&oacute;n alpha fue lanzada el 4 de enero de 1993. Un a&ntilde;o m&aacute;s tarde, el 17 de febrero de 1994 aparece la versi&oacute;n 1.0. El nombre surge del nombre de un profesor de unos de los autores conocido por sus buenas aproximaciones por medio de c&aacute;lculos mentales a problemas num&eacute;ricos.</p><h2 id="4">Desarrollo</h2><p><b>Problema 1.</b></p><pre class="language-matlab"><span class="keyword">function</span> [Fw] = fun1(a,w)
+Fw=a./(a.^2 + w.^2);
+<span class="keyword">return</span> ;
+<span class="keyword">end</span>
+</pre><p><b>Problema 2.</b></p><p>C&oacute;digo:</p><pre class="codeinput">w=-2:.0002:2;
+a=1;
+Fw=fun1(a,w);
+CFigure2(w,Fw );
+</pre><img vspace="5" hspace="5" src="Practica02_01.png" alt=""> <p><b>Problema 4.</b></p><p>M1.1</p><pre class="codeinput">f = @(t) exp(-t).*cos(2*pi*t);
+t=0;
+f(t)
+
+t = (-2:2);
+f(t)
+
+plot(t,f(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+
+t = (-2:0.01:2);
+figure;
+plot (t,f(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+</pre><pre class="codeoutput">
+ans =
+
+     1
+
+
+ans =
+
+    7.3891    2.7183    1.0000    0.3679    0.1353
+
+</pre><img vspace="5" hspace="5" src="Practica02_02.png" alt=""> <img vspace="5" hspace="5" src="Practica02_03.png" alt=""> <p>M1.2</p><pre class="codeinput">u = @(t)t&gt;=0;
+t = (-2:2);
+figure;
+plot (t,u(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>);
+
+t = (-2:0.01:2);
+figure;
+plot (t,u(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>);
+
+p = @(t) t&gt;=0 &amp; t&lt;1;
+t = (-1:0.01:2); plot(t,p(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'p(t) = u(t)-u(t-1)'</span>);
+axis ([-1 2 -.1 1.1]);
+</pre><img vspace="5" hspace="5" src="Practica02_04.png" alt=""> <img vspace="5" hspace="5" src="Practica02_05.png" alt=""> <p>M1.3</p><pre class="codeinput">g = @(t) exp(-t).*cos(2*pi*t).*(t&gt;=0);
+t = (-2:0.01:2);
+figure;
+plot(t,g(2*t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(2t+1)'</span>); grid;
+
+figure;
+plot(t,g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(-t+1)'</span>); grid;
+
+figure;
+plot(t,g(2*t+1) +g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'h(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="Practica02_06.png" alt=""> <img vspace="5" hspace="5" src="Practica02_07.png" alt=""> <img vspace="5" hspace="5" src="Practica02_08.png" alt=""> <p>M1.4</p><pre class="codeinput">x = @(t) exp(-t).*((t&gt;=0)&amp;(t&lt;1));
+t = (0:0.01:1);
+E_x =sum(x(t).*x(t)*0.01)
+
+x_squared = @(t) exp(-2*t).*((t&gt;=0)&amp;(t&gt;1));
+E_x = integral(x_squared,0,1)
+
+g_squared = @(t) exp(-2*t).*(cos(2*pi*t).^2).*(t&gt;=0);
+t = (0:0.001:100);
+E_g = sum(g_squared(t)*0.001)
+
+E_g = integral(g_squared, 0,100)
+</pre><pre class="codeoutput">
+E_x =
+
+    0.4367
+
+
+E_x =
+
+     0
+
+
+E_g =
+
+    0.2567
+
+
+E_g =
+
+    0.2562
+
+</pre><p><b>Problema 5.</b></p><pre class="codeinput">u = @(t) (t&gt;=0)
+x = @(t) (-t.*(u(t+4)-u(t)))+(t.*(u(t)-u(t-2)))
+n = -10:.001:10;
+figure;
+plot(n,x(n));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t)'</span>);
+grid <span class="string">on</span>;
+<span class="comment">% a x(t-4)</span>
+figure;
+subplot(2,3,1)
+plot(n,x(n-4));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t-4)'</span>);
+grid;
+<span class="comment">% a x(t/1.5)</span>
+subplot(2,3,2)
+plot(n, x(n/1.5));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t/1.5)'</span>);
+grid;
+<span class="comment">% a x(-t)</span>
+subplot(2,3,3)
+plot(n, x(-n));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(-t)'</span>);
+grid;
+<span class="comment">% a x(2t-4)</span>
+subplot(2,3,4)
+plot(n, x((2*n)-4));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(2t-4)'</span>);
+grid;
+<span class="comment">% a x(2-t)</span>
+subplot(2,3,6)
+plot(n, x(2-n));
+grid;
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(2-t)'</span>);
+<span class="comment">%</span>
+</pre><pre class="codeoutput">
+u =
+
+  function_handle with value:
+
+    @(t)(t&gt;=0)
+
+
+x =
+
+  function_handle with value:
+
+    @(t)(-t.*(u(t+4)-u(t)))+(t.*(u(t)-u(t-2)))
+
+</pre><img vspace="5" hspace="5" src="Practica02_09.png" alt=""> <img vspace="5" hspace="5" src="Practica02_10.png" alt=""> <p><b>Problema 6.</b></p><pre class="codeinput">t=-10:0.01:10;
+x= @(t) 1*((t&gt;0) &amp; (t&lt;2));
+y= @(t) 1*((t&gt;0)&amp;(t&lt;1)) + (-1)*((t&gt;1)&amp;(t&lt;2));
+
+f= @(t) x(t)+y(t);
+g= @(t) x(t)-y(t);
+
+
+Ef=energia(f)
+figure
+plot(t,f(t))
+
+Eg=energia(g)
+figure
+plot(t,g(t))
+</pre><pre class="codeoutput">
+Ef =
+
+    4.0000
+
+
+Eg =
+
+     0
+
+</pre><img vspace="5" hspace="5" src="Practica02_11.png" alt=""> <img vspace="5" hspace="5" src="Practica02_12.png" alt=""> <p><b>Problema 7.</b></p><pre class="codeinput"><span class="comment">%Resolviendo el problema 1.1.4</span>
+
+<span class="comment">%La se&ntilde;al descrita es la siguiente</span>
+x=@(t) t.^3.*((t&gt;-2)&amp;(t&lt;2));
+<span class="comment">%Su potencia, calcul&aacute;ndola con la f&oacute;rmula 'potencia' antes desarrollada es:</span>
+Ex=potencia(x)
+
+<span class="comment">%a)</span>
+<span class="comment">%xa=@(t) -x(t);</span>
+<span class="comment">%Exa=potencia(xa);</span>
+<span class="comment">%rmsxa= sqrt(Exa)</span>
+
+<span class="comment">%b)</span>
+<span class="comment">%xb=@(t) 2*x(t);</span>
+<span class="comment">%Exb=potencia(xb);</span>
+<span class="comment">%rmsxb= sqrt(Exb)</span>
+
+<span class="comment">%c)</span>
+xc=@(t) x(t);
+Exc=potencia(xc);
+rmsxc= sqrt(Exc);
+syms <span class="string">C</span>
+rmsxc= rmsxc*C
+</pre><pre class="codeoutput">
+Ex =
+
+    9.1429
+
+ 
+rmsxc =
+ 
+(8*7^(1/2)*C)/7
+ 
+</pre><h2 id="14">Ap&eacute;ndices</h2><p>C&oacute;digo de la funci&oacute;n CFigure2, que se ocup&oacute; en el Problema 2:</p><pre class="codeinput"><span class="keyword">function</span> createfigure1(X1, Y1)
+<span class="comment">%CREATEFIGURE1(X1, Y1)</span>
+<span class="comment">%  X1:  vector of x data</span>
+<span class="comment">%  Y1:  vector of y data</span>
+
+<span class="comment">%  Auto-generated by MATLAB on 11-Sep-2019 18:56:43</span>
+
+<span class="comment">% Create figure</span>
+figure1 = figure(<span class="string">'Name'</span>,<span class="string">'F(w) vs w'</span>,<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.992156862745098 0.917647058823529 0.796078431372549]);
+
+<span class="comment">% Create axes</span>
+axes1 = axes(<span class="string">'Parent'</span>,figure1,<span class="string">'YGrid'</span>,<span class="string">'on'</span>,<span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.972549021244049 0.972549021244049 0.972549021244049],<span class="keyword">...</span>
+    <span class="string">'ZColor'</span>,[0 0 0],<span class="keyword">...</span>
+    <span class="string">'YColor'</span>,[0 0 0],<span class="keyword">...</span>
+    <span class="string">'XColor'</span>,[0 0 0],<span class="keyword">...</span>
+    <span class="string">'FontAngle'</span>,<span class="string">'italic'</span>,<span class="keyword">...</span>
+    <span class="string">'FontName'</span>,<span class="string">'MS Gothic'</span>,<span class="keyword">...</span>
+    <span class="string">'Position'</span>,[0.114797297297298 0.0843415023849244 0.775 0.814999999999999],<span class="keyword">...</span>
+    <span class="string">'AmbientLightColor'</span>,[0.945098039215686 0.968627450980392 0.949019607843137]);
+hold(axes1,<span class="string">'on'</span>);
+
+<span class="comment">% Create plot</span>
+plot(X1,Y1,<span class="string">'ZDataSource'</span>,<span class="string">''</span>,<span class="string">'MarkerSize'</span>,0.5,<span class="string">'Marker'</span>,<span class="string">'x'</span>,<span class="string">'LineWidth'</span>,3,<span class="keyword">...</span>
+    <span class="string">'LineStyle'</span>,<span class="string">'-.'</span>,<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.756862759590149 0.866666674613953 0.776470601558685]);
+
+<span class="comment">% Create xlabel</span>
+xlabel(<span class="string">'w'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+
+<span class="comment">% Create ylabel</span>
+ylabel(<span class="string">'F(w)'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16,<span class="string">'FontName'</span>,<span class="string">'Lucida Sans'</span>);
+
+<span class="comment">% Create title</span>
+title(<span class="string">'F(w) vs w'</span>,<span class="string">'LineStyle'</span>,<span class="string">':'</span>,<span class="string">'EdgeColor'</span>,[0 0 0],<span class="string">'FontSize'</span>,14,<span class="keyword">...</span>
+    <span class="string">'FontName'</span>,<span class="string">'Lucida Fax'</span>,<span class="keyword">...</span>
+    <span class="string">'HorizontalAlignment'</span>,<span class="string">'left'</span>);
+<span class="keyword">end</span>
+</pre><h2 id="15">Referencias</h2><p>Conocimientos Inform&aacute;ticos. Historia de Matlab. Recuperado el 13 de Septiembre de 2019, Computer Informaci&oacute;n. Sitio Web: <a href="http://ordenador.wingwit.com/Programacion/computer-programming-languages/87495.html#.XXnUNm5FxPY">http://ordenador.wingwit.com/Programacion/computer-programming-languages/87495.html#.XXnUNm5FxPY</a></p><p>Miguel Angel Alvarez.(19 de November de 2003). Qu&eacute; es Python. Recuperado el 13 de Septiembre de 2019, de DesarrolloWeb. Sitio Web: <a href="https://desarrolloweb.com/articulos/1325.php">https://desarrolloweb.com/articulos/1325.php</a></p><p>IEEE_UCA.(2010). GNU Octave. Recuperado el 13 de Septiembre de 2019, de Rama Estudiantil IEEE-UCA. Sitio Web: <a href="http://ewh.ieee.org/sb/el_salvador/uca/octave.html">http://ewh.ieee.org/sb/el_salvador/uca/octave.html</a></p><p>B. P. Lathi. (2005). Linear Systems and Signals. 198 Madison Avenue, New York, New York 10016: Oxford University Press.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% PRÁCTICA 02 Señales en tiempo continuo
+
+%% Integrantes
+%
+% * Cuevas Morales Saúl Asís
+% * Gonzalez Zúñiga Alexis Bryan
+% * Méndez Pallares Josué
+% * Vallejo Camarillo Moisés Eduardo
+%
+
+%% Objetivos
+%
+% # Manipulación básica de MATLAB.
+% # Gráficas de señales reales y complejas continuas.
+% # Transformación de señales continuas (escalamientos y traslaciones).
+% # Cálculo de energía y potencia de señales continuas.
+%
+
+%% Introducción
+% 
+% Historia de Matlab:
+% 
+% Cleve Moler fue profesor de matemáticas y ciencias de la computación en la
+% Universidad de Nuevo México cuando desarrolló la primera versión de Matlab. 
+% Moler quería que sus estudiantes tuvieran acceso al software de la matriz Linpack 
+% y EISPACK sin tener que utilizar el lenguaje de programación Fortran, el cual es 
+% complejo. Él vino para arriba con el sistema Matlab para resolver este problema. 
+% El lenguaje fue diseñado específicamente para manejar cálculos con matrices y 
+% las matemáticas, dijo en una entrevista con " Computerworld".
+%
+% Moler trató de encontrar algunos de los usos comerciales de Matlab en la década 
+% de 1970 y principios de 1980, sin éxito. Poco después conoció a Jack Little, quien 
+% vio posibilidades de Matlab en el mercado, particularmente en relación a los 
+% problemas de ingeniería. Moler y pequeños MathWorks co - fundada en 1984 
+% para buscar oportunidades de negocio con Matlab. Poco sirvió como presidente 
+% de la compañía, pero Moler no funcionó en la empresa en un primer momento. 
+% Steve Bangert era programador en jefe de la empresa en el inicio. Moler unió a 
+% la compañía en 1989 después de que había comenzado a crecer y generar 
+% importantes ingresos. 
+%
+% MathWorks se desarrolló rápidamente, entre las principales novedades en el 
+% camino, la compañía tuvo éxito en encontrar la manera de hacer Matlab 
+% disponible en todos los equipos en el mercado en la década de 1980. La 
+% compañía también añadió características gráficas y trazado de Matlab, temprano 
+% en la existencia MathWorks, que fue " uno de los aspectos más importantes de 
+% su popularidad”. En 2010, MathWorks tenían $ 600 millones en ingresos, con más 
+% de la mitad procedentes de fuera de los Estados Unidos.
+%
+% Aunque Moler comenzó Matlab, el lenguaje en última instancia resultó influyente 
+% en una amplia gama de campos. En particular, Moler dijo, “poco se volvió Matlab 
+% en un lenguaje de programación amplia, con amplias implicaciones”. Finalmente, 
+% Matlab comenzó a ser utilizado en áreas tan variadas como los automóviles, los 
+% aviones, los audífonos, teléfonos celulares, los precios de derivados financieros 
+% y académicos. En el momento de la publicación, 1400 libros Matlab basados 
+% habían sido escritos en 28 idiomas.
+% 
+% Python:
+% 
+% Python es un lenguaje de scripting independiente de plataforma y orientado a objetos,
+% preparado para realizar cualquier tipo de programa, desde aplicaciones Windows a
+% servidores de red o incluso, páginas web. Es un lenguaje interpretado, lo que significa
+% que no se necesita compilar el código fuente para poder ejecutarlo, lo que ofrece ventajas
+% como la rapidez de desarrollo e inconvenientes como una menor velocidad. En los últimos
+% años el lenguaje se ha hecho muy popular, gracias a varias razones como:
+% 
+% * La cantidad de librerías que contiene, tipos de datos y funciones incorporadas en el
+% propio lenguaje, que ayudan a realizar muchas tareas habituales sin necesidad de tener
+% que programarlas desde cero.
+% * La sencillez y velocidad con la que se crean los programas. Un programa en Python
+% puede tener de 3 a 5 líneas de código menos que su equivalente en Java o C.
+% * La cantidad de plataformas en las que podemos desarrollar, como Unix, Windows, OS/2, Mac, Amiga y otros.
+% * Además, Python es gratuito, incluso para propósitos empresariales.
+%
+% Octave:
+% 
+% Octave o GNU Octave es un programa libre para realizar cálculos numéricos.
+% Como indica su nombre es parte de proyecto GNU. MATLAB es considerado su equivalente comercial.
+% Entre varias características que comparten se puede destacar que ambos ofrecen un
+% intérprete permitiendo ejecutar órdenes en modo interactivo. Nótese que Octave no es un
+% sistema de álgebra computacional como podría ser Maxima, sino que usa un lenguaje que está
+% orientado al análisis numérico.
+% El proyecto fue creado alrededor del año 1988 pero con una finalidad diferente:
+% Ser utilizado en un curso de diseño de reactores químicos. Posteriormente en el
+% año 1992, se decide extenderlo y comienza su desarrollo a cargo de John W. Eaton. La primera
+% versión alpha fue lanzada el 4 de enero de 1993. Un año más tarde, el 17 de febrero de 1994
+% aparece la versión 1.0. El nombre surge del nombre de un profesor de unos de los autores conocido
+% por sus buenas aproximaciones por medio de cálculos mentales a problemas numéricos.
+% 
+%% Desarrollo
+%%
+% *Problema 1.*
+%
+%   function [Fw] = fun1(a,w)
+%   Fw=a./(a.^2 + w.^2);
+%   return ;
+%   end
+%%
+% *Problema 2.*
+% 
+% Código:
+%
+w=-2:.0002:2;
+a=1;
+Fw=fun1(a,w);
+CFigure2(w,Fw );
+%%
+% *Problema 4.*
+% 
+% M1.1
+% 
+f = @(t) exp(-t).*cos(2*pi*t);
+t=0;
+f(t)
+
+t = (-2:2);
+f(t)
+
+plot(t,f(t));
+xlabel('t'); ylabel('f(t)'); grid;
+
+t = (-2:0.01:2);
+figure;
+plot (t,f(t));
+xlabel('t'); ylabel('f(t)'); grid;
+
+%%
+% M1.2
+% 
+u = @(t)t>=0;
+t = (-2:2);
+figure;
+plot (t,u(t));
+xlabel('t'); ylabel('u(t)');
+
+t = (-2:0.01:2);
+figure;
+plot (t,u(t));
+xlabel('t'); ylabel('u(t)');
+
+p = @(t) t>=0 & t<1;
+t = (-1:0.01:2); plot(t,p(t));
+xlabel('t'); ylabel('p(t) = u(t)-u(t-1)');
+axis ([-1 2 -.1 1.1]);
+
+%%
+% M1.3
+% 
+g = @(t) exp(-t).*cos(2*pi*t).*(t>=0);
+t = (-2:0.01:2);
+figure;
+plot(t,g(2*t+1)); xlabel('t'); ylabel('g(2t+1)'); grid;
+
+figure;
+plot(t,g(-t+1)); xlabel('t'); ylabel('g(-t+1)'); grid;
+
+figure;
+plot(t,g(2*t+1) +g(-t+1)); xlabel('t'); ylabel('h(t)'); grid;
+
+%%
+% M1.4
+% 
+x = @(t) exp(-t).*((t>=0)&(t<1));
+t = (0:0.01:1);
+E_x =sum(x(t).*x(t)*0.01)
+
+x_squared = @(t) exp(-2*t).*((t>=0)&(t>1));
+E_x = integral(x_squared,0,1)
+
+g_squared = @(t) exp(-2*t).*(cos(2*pi*t).^2).*(t>=0);
+t = (0:0.001:100);
+E_g = sum(g_squared(t)*0.001)
+
+E_g = integral(g_squared, 0,100)
+%%
+% *Problema 5.*
+% 
+u = @(t) (t>=0)
+x = @(t) (-t.*(u(t+4)-u(t)))+(t.*(u(t)-u(t-2)))
+n = -10:.001:10;
+figure;
+plot(n,x(n));
+xlabel('t');
+ylabel('f(t)');
+grid on;
+% a x(t-4)
+figure;
+subplot(2,3,1)
+plot(n,x(n-4));
+xlabel('t');
+ylabel('f(t-4)');
+grid;
+% a x(t/1.5)
+subplot(2,3,2)
+plot(n, x(n/1.5));
+xlabel('t');
+ylabel('f(t/1.5)');
+grid;
+% a x(-t)
+subplot(2,3,3)
+plot(n, x(-n));
+xlabel('t');
+ylabel('f(-t)');
+grid;
+% a x(2t-4)
+subplot(2,3,4)
+plot(n, x((2*n)-4));
+xlabel('t');
+ylabel('f(2t-4)');
+grid;
+% a x(2-t)
+subplot(2,3,6)
+plot(n, x(2-n));
+grid;
+xlabel('t');
+ylabel('f(2-t)');
+% 
+%%
+% *Problema 6.*
+% 
+t=-10:0.01:10;
+x= @(t) 1*((t>0) & (t<2));
+y= @(t) 1*((t>0)&(t<1)) + (-1)*((t>1)&(t<2));
+
+f= @(t) x(t)+y(t);
+g= @(t) x(t)-y(t);
+
+
+Ef=energia(f)
+figure
+plot(t,f(t))
+
+Eg=energia(g)
+figure
+plot(t,g(t))
+%%
+% *Problema 7.*
+%
+%Resolviendo el problema 1.1.4
+
+%La señal descrita es la siguiente
+x=@(t) t.^3.*((t>-2)&(t<2));
+%Su potencia, calculándola con la fórmula 'potencia' antes desarrollada es:
+Ex=potencia(x)
+
+%a)
+%xa=@(t) -x(t);
+%Exa=potencia(xa);
+%rmsxa= sqrt(Exa)
+
+%b)
+%xb=@(t) 2*x(t);
+%Exb=potencia(xb);
+%rmsxb= sqrt(Exb)
+
+%c)
+xc=@(t) x(t);
+Exc=potencia(xc);
+rmsxc= sqrt(Exc);
+syms C
+rmsxc= rmsxc*C 
+%% Apéndices
+% 
+% Código de la función CFigure2, que se ocupó en el Problema 2:
+function createfigure1(X1, Y1)
+%CREATEFIGURE1(X1, Y1)
+%  X1:  vector of x data
+%  Y1:  vector of y data
+
+%  Auto-generated by MATLAB on 11-Sep-2019 18:56:43
+
+% Create figure
+figure1 = figure('Name','F(w) vs w',...
+    'Color',[0.992156862745098 0.917647058823529 0.796078431372549]);
+
+% Create axes
+axes1 = axes('Parent',figure1,'YGrid','on','XGrid','on',...
+    'Color',[0.972549021244049 0.972549021244049 0.972549021244049],...
+    'ZColor',[0 0 0],...
+    'YColor',[0 0 0],...
+    'XColor',[0 0 0],...
+    'FontAngle','italic',...
+    'FontName','MS Gothic',...
+    'Position',[0.114797297297298 0.0843415023849244 0.775 0.814999999999999],...
+    'AmbientLightColor',[0.945098039215686 0.968627450980392 0.949019607843137]);
+hold(axes1,'on');
+
+% Create plot
+plot(X1,Y1,'ZDataSource','','MarkerSize',0.5,'Marker','x','LineWidth',3,...
+    'LineStyle','-.',...
+    'Color',[0.756862759590149 0.866666674613953 0.776470601558685]);
+
+% Create xlabel
+xlabel('w','FontWeight','bold','FontSize',16);
+
+% Create ylabel
+ylabel('F(w)','FontWeight','bold','FontSize',16,'FontName','Lucida Sans');
+
+% Create title
+title('F(w) vs w','LineStyle',':','EdgeColor',[0 0 0],'FontSize',14,...
+    'FontName','Lucida Fax',...
+    'HorizontalAlignment','left');
+end
+%% Referencias
+% 
+% Conocimientos Informáticos. Historia de Matlab. Recuperado el 13 de Septiembre de 2019,
+% Computer Información. Sitio Web: <http://ordenador.wingwit.com/Programacion/computer-programming-languages/87495.html#.XXnUNm5FxPY>
+% 
+% Miguel Angel Alvarez.(19 de November de 2003). Qué es Python. Recuperado el 13 de Septiembre de 2019,
+% de DesarrolloWeb. Sitio Web: <https://desarrolloweb.com/articulos/1325.php>
+% 
+% IEEE_UCA.(2010). GNU Octave. Recuperado el 13 de Septiembre de 2019,
+% de Rama Estudiantil IEEE-UCA. Sitio Web: <http://ewh.ieee.org/sb/el_salvador/uca/octave.html>
+% 
+% B. P. Lathi. (2005). Linear Systems and Signals. 198 Madison Avenue,
+% New York, New York 10016: Oxford University Press. 
+##### SOURCE END #####
+--></body></html>
